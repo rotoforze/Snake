@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake sin cola</title>
+</head>
+<style>
+    body{display:flex;flex-direction: column;justify-content: center; margin: 10px auto; width: 70%;}
+    #game{height: 500px;width: 500px;border: 6px solid #000000; background-color: #252525; margin: 10px auto;}
+    #snake{height: 25px;width: 25px;background-color: #008000;position: relative;}
+    #point{background-color: red;height: 20px; width: 10px;position: relative;}
+    #reset{color:rgb(18, 18, 18);border: 3px solid #6e6d6d; border-radius: 10px;background-color: #878787;}
+    #top{display: flex;flex-direction: column;text-align: center;margin: 0px auto;}
+    #title{margin-top: 20px;}
+    #title h1{margin-bottom: -1.8%;}
+    #title a{text-decoration: none;font-size: 2vh;margin-bottom: 2%;color:rgb(18, 18, 18);}
+    #info{display: flex;flex-direction: row;text-align: center;margin:0px auto;}
+    #puntuacion, #posY, #posX{margin:5px;}
+    #boton{background-color: #878787;border: 3px solid #6e6d6d; border-radius: 10px; height: 15px; width: 50px;margin: 0px auto;margin-bottom: -45px;}
+    #circulo{background-color: rgb(18, 18, 18); border: 5px solid; border-radius: 50px; height: 5px; width: 5px; margin-left: 1px; margin-right: 1px; position: relative; border-color: rgb(18, 18, 18);}
+    @media only screen and (max-width: 740px) {
+    #title h1{
+        font-size: 4.5vh;
+    }
+    #title{
+        margin-top: 15px;
+    }
+    body{
+        font-size:2vh;
+    }
+}
+</style>
+<body>
+    <div id="top">
+        <div id="boton">
+            <div id="circulo"></div>
+        </div>
+        <div id="title">
+            <h1>Sanke sin cola</h1>
+            <a href="https://www.twitter.com/rotoforze" target="_blank">By rotoforze</a>
+        </div>
+    </div>
+    <div id="game">
+        <div id="point" hidden=""></div>
+        <div id="snake"></div>
+    </div>
+    <div id="info">
+        <button id="reset">Reiniciar</button>
+        <a id="puntuacion"></a>
+        <a id="posY"></a>
+        <a id="posX"></a>
+    </div>
+</body>
+<script src="main.js"></script>
+</html>

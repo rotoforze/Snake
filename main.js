@@ -1,13 +1,13 @@
-window.addEventListener("keydown", move)
-window.onload = events;
+window.addEventListener("keydown", move) //Esto detectará la tecla que pulsamos
+window.onload = events; //Primera carga
 function events(){
     document.getElementById("boton").addEventListener("click", sw); //Añadimos un EventListener para llamar a la función que cambiará el color de la página
     document.querySelector("a").addEventListener("mouseenter", twitterenter); //Añadimos un EventListener para llamar a la función twitterenter 
     document.querySelector("a").addEventListener("mouseleave", twitterleave); //Añadimos un EventListener para llamar a la función twitterleave 
-    document.getElementById("boton").addEventListener("click", animacion);
-    document.getElementById("puntuacion").innerHTML = "Puntos: "+punt;
-    document.getElementById("posY").innerHTML = "PosY: "+ posY;
-    document.getElementById("posX").innerHTML = "PosX: "+ posX;
+    document.getElementById("boton").addEventListener("click", animacion); //Añadimos un EventListener para llamar a la función animacion
+    document.getElementById("puntuacion").innerHTML = "Puntos: "+punt; //Escribimos para no dejar en blanco
+    document.getElementById("posY").innerHTML = "PosY: "+ posY; //Escribimos para no dejar en blanco
+    document.getElementById("posX").innerHTML = "PosX: "+ posX; //Escribimos para no dejar en blanco
     inicio();
 }
 //Botón para cambiar modo claro y oscuro
@@ -87,108 +87,112 @@ function twitterleave(){
     }
 }
 
-var der = 0;
-var izq = 0;
-var abj = 0;
-var arr = 0;
+var der = 0; //Para saber la útlima tecla
+var izq = 0; // "
+var abj = 0; // "
+var arr = 0; // "
 
 function move(event) {
-    let key = event.key;
-    if (key == "ArrowRight" || key == "ArrowLeft" || key == "ArrowDown" || key == "ArrowUp") {
-        if (key == "ArrowRight"){der = 1;}else{der = 0;}
-        if (key == "ArrowLeft"){izq = 1;}else{izq = 0;}
-        if (key == "ArrowDown"){abj = 1;}else{abj = 0;}
-        if (key == "ArrowUp"){arr = 1;}else{arr = 0;}
+    let key = event.key; //Guardamos en una variable la tecla pulsada
+    if (key == "ArrowRight" || key == "ArrowLeft" || key == "ArrowDown" || key == "ArrowUp") { //Si la tecla pulsada fue una de las siguientes
+        if (key == "ArrowRight"){der = 1;}else{der = 0;} //Si fue derecha guardamos la info para seguir avanzando hacia ese lado
+        if (key == "ArrowLeft"){izq = 1;}else{izq = 0;} // " izquierda
+        if (key == "ArrowDown"){abj = 1;}else{abj = 0;} // " abajo
+        if (key == "ArrowUp"){arr = 1;}else{arr = 0;} // " arriba
     }
 }
-const s = document.getElementById("snake").style;
-const p = document.getElementById("point").style;
+const s = document.getElementById("snake").style; //Acortamos código
+const p = document.getElementById("point").style; //Acortamos código
 
-var speed = 5;
-var posX = 20;
-var posY = 20;
-var posXp = 20;
-var posYp = 80;
-var punt = 0;
-var tempPunt = 0;
-var id = null;
+var speed = 5; //Variable para poner una velocidad
+var posX = 20; // Posición X del cuadrado verde
+var posY = 20; // Posición Y del cuadrado verde
+var posXp = 20; // Posición X del punto
+var posYp = 80; // Posición Y del punto
+var punt = 0; // Puntuación
+var tempPunt = 0; // Puntuación temporal
+var id = null; // Variable para el timer
 
 function inicio(){
-    clearInterval(id);
-    id = setInterval(frame, 42);
-    document.getElementById("reset").addEventListener("click", inicio)
-    der = 0;
-    izq = 0;
-    abj = 0;
-    arr = 0;
-    posX = 20;
-    posY = 20;
-    posXp = 20;
-    posYp = 80;
-    punt = 0;
-    tempPunt = 0;
-    document.getElementById("point").hidden = false;
-    s.backgroundColor = "#008000";
-    s.left = posX+"px";
-    s.top = posY+"px";
-    p.left = posXp+"px";
-    p.top = posYp+"px"
+    clearInterval(id); //Impedimos loop
+    id = setInterval(frame, 42); //Iniciamos timer
+    document.getElementById("reset").addEventListener("click", inicio) //Ponemos el botón de reiniciar
+    der = 0; //Lo ponemos en 0 para que no siga avanzando
+    izq = 0; // "
+    abj = 0; // "
+    arr = 0; // "
+    posX = 20; //Reiniciamos la posición
+    posY = 20; // "
+    posXp = 20; // "
+    posYp = 80; // "
+    punt = 0; // Reiniciamos la puntuación
+    tempPunt = 0; // " Puntuación temporal
+    speed = 5; // Reiniciamos velocidad
+    document.getElementById("point").hidden = false; //Ponemos el puntuable visible
+    s.backgroundColor = "#008000"; //Ponemos el jugador del color con el que se representa estar vivo
+    s.left = posX+"px"; //Movemos el player
+    s.top = posY+"px"; // "
+    p.left = posXp+"px"; // "
+    p.top = posYp+"px"; // "
     function frame() {
-        document.getElementById("puntuacion").innerHTML = "Puntos: "+punt;
-        document.getElementById("posY").innerHTML = "PosY: "+ posY;
-        document.getElementById("posX").innerHTML = "PosX: "+ posX;
-        var rect1 = document.querySelector("#snake").getBoundingClientRect();
-        var rect2 = document.querySelector("#point").getBoundingClientRect();
-        var tempPosYp = Math.random() * 380;
-        var tempPosXp = Math.random() * 380;
-        const overlap = !(rect1.right < rect2.left ||  
+        document.getElementById("puntuacion").innerHTML = "Puntos: "+punt; // Pintamos la puntuación
+        document.getElementById("posY").innerHTML = "PosY: "+ posY; // Pintamos la posY
+        document.getElementById("posX").innerHTML = "PosX: "+ posX; // Pintamos la posX
+        //Overlap
+        var rect1 = document.querySelector("#snake").getBoundingClientRect(); //Recogemos los datos de posición del player
+        var rect2 = document.querySelector("#point").getBoundingClientRect(); //Recogemos los datos de posición del puntuable
+        var tempPosYp = Math.random() * 380; //Generamos un número random para posY temporal del puntuable 
+        var tempPosXp = Math.random() * 380; //Generamos un número random para posX temporal del puntuable 
+        const overlap = !(rect1.right < rect2.left ||  //Comprobamos si se sobreponen
             rect1.left > rect2.right ||  
             rect1.bottom < rect2.top ||  
             rect1.top > rect2.bottom);
         if (overlap == true){
-            document.getElementById("point").hidden = true;
-            punt = punt+1;
-            posXp = tempPosXp + 20;
-            posYp = tempPosYp + 20;
-            p.top=posYp+"px";
-            p.left=posXp+"px";
-            document.getElementById("point").hidden = false;
+            document.getElementById("point").hidden = true; //Ocultamos el puntuable 
+            punt = punt+1; //Sumamos 1 en la puntuación
+            posXp = tempPosXp + 20; //Ponemos en la var posXp la posición temporal de el puntuable con el rng
+            posYp = tempPosYp + 20; // "
+            p.top=posYp+"px"; // Movemos el puntuable
+            p.left=posXp+"px"; // // "
+            document.getElementById("point").hidden = false; //Lo mostramos de nuevo
+        } 
+        //Subida de dificultad
+        if (tempPunt == punt-5){ //Comprobamos si la puntuacón temporal es idéntico a la puntuación - 5
+            speed=speed+1; //Sumamos 1 a la velocidad
+            tempPunt = punt; //Movemos la puntuacón temporal a la actual
         }
-        if (tempPunt == punt-5){
-            speed=speed+1;
-            tempPunt = punt;
-        }
-        if (der == 1){
-            if (posX >= 475){
-                clearInterval(id);
-                s.backgroundColor = "#db1f22"
-            } else { 
-                posX = posX+speed;
-                s.left = posX+"px";
+        //Movilidad
+        if (der == 1){ //Si la última pulsada es derecha
+            if (posX >= 475){ //Si sobrepasa estas coordenadas
+                clearInterval(id); //Pausamos el game 
+                s.backgroundColor = "#db1f22" //Cambiamos a rojo para darle un feedback al jugador
+            } else { //Si no
+                posX = posX+speed; //PosX + Velocidad
+                s.left = posX+"px"; //Movemos el personaje
             }
-        }else if(izq == 1){
-            if (posX <= 0){
-                clearInterval(id);
-                s.backgroundColor = "#db1f22"
-            } else { 
-                posX = posX-speed;
-                s.left = posX+"px";
+        }else if(izq == 1){ //Si la última pulsada es izquierda
+            if (posX <= 0){//Si sobrepasa estas coordenadas
+                clearInterval(id);//Pausamos el game 
+                s.backgroundColor = "#db1f22"//Cambiamos a rojo para darle un feedback al jugador
+            } else { //Si no
+                posX = posX-speed; //PosX - Velocidad
+                s.left = posX+"px"; //Movemos el personaje
             }
-        }else if(arr == 1){
-            if (posY <= -20){
-                clearInterval(id);
-                s.backgroundColor = "#db1f22"
-            } else { 
-                posY = posY-speed;
-                s.top = posY+"px";
+        }else if(arr == 1){ //Si la última pulsada es arriba
+            if (posY <= -20){//Si sobrepasa estas coordenadas
+                clearInterval(id);//Pausamos el game 
+                s.backgroundColor = "#db1f22"//Cambiamos a rojo para darle un feedback al jugador
+            } else { //Si no
+                posY = posY-speed; //PosY - Velocidad
+                s.top = posY+"px"; //Movemos el personaje
             }
-        }else if(abj == 1){
-            if (posY >=455){
-                clearInterval(id);
-                s.backgroundColor = "#db1f22"
-            } else { 
-                posY = posY+speed;
-                s.top = posY+"px";
+        }else if(abj == 1){ //Si la última pulsada es abajo
+            if (posY >=455){//Si sobrepasa estas coordenadas
+                clearInterval(id);//Pausamos el game 
+                s.backgroundColor = "#db1f22"//Cambiamos a rojo para darle un feedback al jugador
+            } else { //Si no
+                posY = posY+speed; //PosY + Velocidad
+                s.top = posY+"px"; //Movemos el personaje
             }
         }
     }
